@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,13 +64,15 @@
 
     <div class="container" style="margin-top:40px">
 		<div class="row">
+		<?php if(!isset($_SESSION['loginname'])){?>
+			
 			<div class="col-sm-6 col-md-6 col-md-offset-4">
 				<div class="panel2 panel-default2">
 					<div class="panel-heading2">
 						<strong>Faça o Login</strong>
 					</div>
 					<div class="panel-body2">
-						<form role="form" method="POST" action="\pagina-login.php">
+						<form role="form" method="POST" action="pagina-login.php">
 							<fieldset>
 								<?php
 								
@@ -141,7 +147,7 @@
 						<strong>Cadastro</strong>
 					</div>
 					<div class="panel-body2">
-						<form role="form" method="GET" action="\valida-cadastro.php">
+						<form role="form" method="GET" action="valida-cadastro.php">
 							<fieldset>
 								<?php
 									if(isset($_SESSION['user_status'])){
@@ -193,9 +199,15 @@
 					</div>
 				</div>
                 </div>
-			</div>
+		<?php }else{	?>
+	<h2>Hello <?php echo $_SESSION['loginname'] ?></h2>
+	<form action="logout.php" method="POST">
+		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sair" name="logout"/>
+	</form>
+		<?php }?>
 		</div>
 	</div>
+
     <!-- /.container -->
 
     <!-- Footer -->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Jun-2018 às 18:34
+-- Generation Time: 23-Jun-2018 às 21:05
 -- Versão do servidor: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -77,6 +77,27 @@ INSERT INTO `produtos` (`id`, `nome`, `preco`, `qtd`, `img_link`, `cat_id`) VALU
 (32, 'Notebook Ultraportátil Dell XPS-9370-M10S 8ª geração Intel Core i7 8GB 256GB FHD 13.3\" Windows 10', 8000, 20, 'https://images-submarino.b2w.io/produtos/01/00/sku/31007/3/31007366_1SZ.jpg', 1),
 (33, 'Notebook Acer A515-51G-C690 Intel Core I3 4GB 1TB Tela LED 15.6\" Windows 10 - Preto', 1800, 20, 'https://images-submarino.b2w.io/produtos/01/00/item/132620/9/132620922_4SZ.jpg', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id` int(10) NOT NULL,
+  `login` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `senha` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `login`, `email`, `senha`) VALUES
+(1, 'elvis', 'elvis@teste.com', '$2y$10$Hy9KlbKzczBjjzQAKmsmYu5v3aLkyMmb0dYEQcQSwaRO0VHixNpWi'),
+(2, 'teste', 'elvispiedade', '$2y$10$qYkNIJymRBSSaVXs9f8eU.l9.qRWiOUuCufb77vruKuNuvQGOCkj2');
+
 --
 -- Indexes for dumped tables
 --
@@ -95,6 +116,12 @@ ALTER TABLE `produtos`
   ADD KEY `prod_cat` (`cat_id`);
 
 --
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -103,6 +130,12 @@ ALTER TABLE `produtos`
 --
 ALTER TABLE `produtos`
   MODIFY `id` int(60) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
