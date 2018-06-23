@@ -170,7 +170,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-envelope"></i>
 												</span> 
-												<input class="form-control" placeholder="Email" name="email" type="text" autofocus required>
+												<input class="form-control" placeholder="Email" name="email" type="email" autofocus required>
 											</div>
 										</div>
 										<div class="form-group">

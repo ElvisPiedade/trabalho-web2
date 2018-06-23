@@ -68,7 +68,7 @@
               <a class="nav-link" href="#">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="contato.php">Contato</a>
             </li>
 			<li class="nav-item">
               <a class="nav-link" href="login.php">Login</a>
