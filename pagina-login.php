@@ -38,6 +38,7 @@ session_start();
 		$_SESSION['senha'] = $senha;
 		$_SESSION['loginname'] = $login;
 		$_SESSION['email_atual'] = $linha['email'];
+		$_SESSION['logado'] = 'true';
 		header("location:login.php");
 		}
 ?>

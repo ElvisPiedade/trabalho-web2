@@ -20,6 +20,7 @@
 	}else{
 		$current_cat = $_SESSION['cat_id'];
 	}
+
 ?>
 
 <!DOCTYPE html>
@@ -76,6 +77,15 @@
 			<li class="nav-item">
               <a class="nav-link" href="carrinho.php">Carrinho</a>
             </li>
+			
+			<form role="search" method="post" action="busca.php">
+			<div class="search-control">
+				<input type="search" id="site-search" name="busca_text"
+					   placeholder="Search the site..."
+					   aria-label="Search through site content">
+				<button type="submit">Search</button>
+			</div>
+			</form>	
           </ul>
         </div>
       </div>
@@ -93,10 +103,14 @@
 		  
 			<?php
 				do{ 
-				$aux = $linha_cat['cat_id'];
+//				$aux = $linha_cat['cat_id'];
 			?>
 				<div id="cat_<?php echo $linha_cat['cat_id'] ?>">
+				<?php if($linha_cat['cat_id'] == $current_cat){?>
+					<a href="#" class="list-group-item active" onclick="change_view($(this).parent().attr('id'))"><?php echo $linha_cat['nome'] ?></a>
+				<?php }else{ ?>
 					<a href="#" class="list-group-item" onclick="change_view($(this).parent().attr('id'))"><?php echo $linha_cat['nome'] ?></a>
+				<?php } ?>	
 				</div>
 			<?php 
 				}while($linha_cat = mysqli_fetch_assoc($result_cat));	
@@ -147,31 +161,59 @@
 
 			<div class="row">
 				<?php
-					$i = 0;
-					do{
-						if($linha['cat_id'] == $current_cat){
+					if(isset($_SESSION['busca']) && $_SESSION['busca'] == 'true'){
+						if(count($_SESSION['produtos_busca']) > 0){
+							echo count($_SESSION['produtos_busca']);
+							foreach($_SESSION['produtos_busca'] as $key => $values){
 				?>
-						<div class="col-lg-4 col-md-6 mb-4">
-						  <div class="card h-100">
-							<a href="#"><img class="card-img-top" src="<?php echo $linha['img_link']?>" alt=""></a>
-							<div class="card-body">
-							  <h4 style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;display: -webkit-box;overflow: hidden;font-size: 14px;">
-								<div id="<?php echo $linha['id'] ?>">
-									<a href = "produto.php" onclick = "nome_src($(this).parent().attr('id'))"><?php echo $linha['nome']?></a>
-								</div>
-							  </h4>
-							  <h5>R$ <?php echo $linha['preco']?></h5>
-							</div>
-							<div class="card-footer">
+								<div class="col-lg-4 col-md-6 mb-4">
+								  <div class="card h-100">
+									<a href="#"><img class="card-img-top" src="<?php echo $_SESSION['produtos_busca'][$key]['img_link']?>" alt=""></a>
+									<div class="card-body">
+									  <h4 style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;display: -webkit-box;overflow: hidden;font-size: 14px;">
+										<div id="<?php echo $_SESSION['produtos_busca'][$key]['id'] ?>">
+											<a href = "produto.php" onclick = "nome_src($(this).parent().attr('id'))"><?php echo $_SESSION['produtos_busca'][$key]['nome']?></a>
+										</div>
+									  </h4>
+									  <h5>R$ <?php echo $_SESSION['produtos_busca'][$key]['preco']?></h5>
+									</div>
+									<div class="card-footer">
 
-							</div>
-						  </div>
-						</div>
-	
-				<?php			
+									</div>
+								  </div>
+								</div>
+				<?php		
+							}				
+						}else{
+							?> <h1>Não foi encontrado resultados para sua busca</h1> <?php
 						}
-					}while($linha = mysqli_fetch_assoc($result) );	
+					}else{
+							do{
+								if($linha['cat_id'] == $current_cat){				
+						?>
+										<div class="col-lg-4 col-md-6 mb-4">
+										  <div class="card h-100">
+											<a href="#"><img class="card-img-top" src="<?php echo $linha['img_link']?>" alt=""></a>
+											<div class="card-body">
+											  <h4 style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;display: -webkit-box;overflow: hidden;font-size: 14px;">
+												<div id="<?php echo $linha['id'] ?>">
+													<a href = "produto.php" onclick = "nome_src($(this).parent().attr('id'))"><?php echo $linha['nome']?></a>
+												</div>
+											  </h4>
+											  <h5>R$ <?php echo $linha['preco']?></h5>
+											</div>
+											<div class="card-footer">
+
+											</div>
+										  </div>
+										</div>
+						<?php			
+									}
+							}while($linha = mysqli_fetch_assoc($result) );	
+					}	
 				?>
+			<!-- Aqui termina a busca -->
+
 			</div>
 			
           <!-- /.row -->

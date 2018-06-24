@@ -49,7 +49,7 @@
               <a class="nav-link" href="#">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="contato.php">Contato</a>
             </li>
 			<li class="nav-item active">
               <a class="nav-link" href="login.php">Login</a>
@@ -57,6 +57,14 @@
 			<li class="nav-item">
               <a class="nav-link" href="carrinho.php">Carrinho</a>
             </li>
+			<form role="search">
+			<div class="search-control">
+				<input type="search" id="site-search" name="q"
+					   placeholder="Search the site..."
+					   aria-label="Search through site content">
+				<button type="submit">Search</button>
+			</div>
+			</form>			
           </ul>
         </div>
       </div>
@@ -98,7 +106,9 @@
 														<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 														<strong>Erro!</strong> Usuário ou Senha inválidos
 													</div>
+													
 												<?php	
+												unset($_SESSION['user_status']);
 												break;
 											case 'cadastrado':
 												?>
@@ -107,6 +117,7 @@
 														<strong>Sucesso!</strong> Cadastro completo
 													</div>
 												<?php
+												unset($_SESSION['user_status']);
 												break;
 										}
 									}
@@ -159,6 +170,7 @@
 										<strong>Erro!</strong> Usuário já existente
 									</div>											
 								<?php		
+									unset($_SESSION['user_status']);
 										}
 									}
 								?>
@@ -200,10 +212,12 @@
 				</div>
                 </div>
 		<?php }else{	?>
-	<h2>Hello <?php echo $_SESSION['loginname'] ?></h2>
-	<form action="logout.php" method="POST">
-		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sair" name="logout"/>
-	</form>
+			
+					<h2>Hello <?php echo $_SESSION['loginname'] ?></h2>
+					<h2>Email <?php echo $_SESSION['email_atual'] ?></h2>
+					<form action="logout.php" method="POST">
+						<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sair" name="logout"/>
+					</form>
 		<?php }?>
 		</div>
 	</div>

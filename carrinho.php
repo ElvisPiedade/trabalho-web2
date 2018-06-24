@@ -3,7 +3,7 @@
 -->
 <?php
 	session_start();
-//	print_r($_SESSION['carrinho']);
+//	print_r($_SESSION['teste']);
 	$soma = 0;
 ?>
 <!-- 
@@ -50,7 +50,7 @@
               <a class="nav-link" href="#">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="contato.php">Contato</a>
             </li>
 			<li class="nav-item">
               <a class="nav-link" href="login.php">Login</a>
@@ -58,6 +58,14 @@
 			<li class="nav-item active">
               <a class="nav-link" href="carrinho.php">Carrinho</a>
             </li>
+			<form role="search">
+			<div class="search-control">
+				<input type="search" id="site-search" name="q"
+					   placeholder="Search the site..."
+					   aria-label="Search through site content">
+				<button type="submit">Search</button>
+			</div>
+			</form>			
           </ul>
         </div>
       </div>
@@ -137,8 +145,9 @@
 							</div>
 							
 						</div>
+						
 						<div class="card-footer">
-							<a href="#" class="btn btn-success" style="width: 100%" onclick="finaliza_compra()">Comprar</a>
+							<a href="#" class="btn btn-success" style="width: 100%" onclick="finaliza_compra(<?php if(isset($_SESSION['logado']) && count($_SESSION['carrinho']) >0){echo $_SESSION['logado'];}else{echo 'false';}; ?>)">Comprar</a>
 						</div>
 					  </div>
 				</div>
@@ -168,10 +177,16 @@
 				$.post("muda_op.php",{qtd_op : sel.value, val_op: id});
 				location.reload();
 			}
-			function finaliza_compra(){
+			function finaliza_compra(log){
+				console.log(log);
+				if(log == false){
+					alert("você precisa estar logado para finalizar a compra");
+				}else{
 					var aux = document.getElementById('tabela-de-compras').innerHTML;
 					$.post("finaliza_compra.php", {compras : aux});
 					window.location.href="finaliza_compra.php";
+				}
+					
 			}
 
 

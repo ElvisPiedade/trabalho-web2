@@ -9,14 +9,14 @@
 	
 
         // Destinatário
-        $para = "eccomerce.ifrs@gmail.com";//$_SESSION['email_atual'];
+        $para = $_SESSION['email_atual'];
 
         // Assunto do e-mail
         $assunto = "Detalhes de sua compra";
 
         // Campos do formulário de contato
-        $nome = "elvis";//$_SESSION['loginname'];
-        $email = "eccomerce.ifrs@gmail.com";//$_SESSION['email_atual'];
+        $nome = $_SESSION['loginname'];
+        $email = $_SESSION['email_atual'];
  
         // Monta o corpo da mensagem com os campos
         $corpo = "<html><body>";
@@ -24,7 +24,7 @@
         $corpo .= "</body></html>";
 
         // Cabeçalho do e-mail
-        $email_headers = implode("\n", array("From: $nome", "Reply-To: $email", "Subject: $assunto", "Return-Path: $email", "MIME-Version: 1.0", "X-Priority: 3", "Content-Type: text/html; charset=UTF-8"));
+        $email_headers = implode("\n", array("From: $nome", "MIME-Version: 1.0", "X-Priority: 3", "Content-Type: text/html; charset=UTF-8"));
 
         //Verifica se os campos estão preenchidos para enviar então o email
         if (!empty($nome) && !empty($email)) {

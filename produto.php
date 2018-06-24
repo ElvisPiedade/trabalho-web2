@@ -3,7 +3,21 @@
 	$teste = $_SESSION['current_prod'];
 	$img_prod = $_SESSION['current_img'];
 	$preco_prod = $_SESSION['current_preco'];
-	$id_prod = $_SESSION['current_id']
+	$id_prod = $_SESSION['current_id'];
+	
+	$con = mysqli_connect("localhost","root","","db");
+	$sql_cat = "SELECT * FROM categoria";
+	$result_cat = mysqli_query($con, $sql_cat) or die(mysqli_error());
+	$linhas_cat = mysqli_num_rows($result_cat);
+	$linha_cat = mysqli_fetch_assoc($result_cat);
+
+	if(!isset($_SESSION['cat_id'])){
+		$_SESSION['cat_id'] = 1;
+		$current_cat = 1;
+	}else{
+		$current_cat = $_SESSION['cat_id'];
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,11 +64,22 @@
               <a class="nav-link" href="#">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="contato.php">Contato</a>
             </li>
+			<li class="nav-item">
+              <a class="nav-link" href="login.php">Login</a>
+            </li>			
 			<li class="nav-item">
               <a class="nav-link" href="carrinho.php">Carrinho</a>
             </li>
+			<form role="search">
+			<div class="search-control">
+				<input type="search" id="site-search" name="q"
+					   placeholder="Search the site..."
+					   aria-label="Search through site content">
+				<button type="submit">Search</button>
+			</div>
+			</form>
           </ul>
         </div>
       </div>
@@ -68,9 +93,21 @@
         <div class="col-lg-3">
           <h1 class="my-4">Shop Name</h1>
           <div class="list-group">
-            <a href="#" class="list-group-item active">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
+		  
+			<?php
+				do{ 
+
+			?>
+				<div id="cat_<?php echo $linha_cat['cat_id'] ?>">
+				<?php if($linha_cat['cat_id'] == $current_cat){?>
+					<a href="#" class="list-group-item active" onclick="change_view($(this).parent().attr('id'))"><?php echo $linha_cat['nome'] ?></a>
+				<?php }else{ ?>
+					<a href="#" class="list-group-item" onclick="change_view($(this).parent().attr('id'))"><?php echo $linha_cat['nome'] ?></a>
+				<?php } ?>	
+				</div>
+			<?php 
+				}while($linha_cat = mysqli_fetch_assoc($result_cat));	
+			?>
           </div>
         </div>
         <!-- /.col-lg-3 -->
