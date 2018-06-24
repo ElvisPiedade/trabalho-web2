@@ -23,7 +23,7 @@
       <body>
         <?php
         // Destinatário
-        $para = "mariele.fonttana@gmail.com";
+        $para = $_POST['email'];
 
         // Assunto do e-mail
         $assunto = "Contato através do site de WEB 2...";
@@ -46,11 +46,15 @@
         if (!empty($nome) && !empty($email) && !empty($mensagem)) {
             mail($para, $assunto, $corpo, $email_headers);
             $msg = "Sua mensagem foi enviada com sucesso.";
-            echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho-web2/');</script>";
+            echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho%20web2/contato.php');</script>";
         } else {
             $msg = "Erro ao enviar a mensagem.";
-            echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho-web2/contato.php');</script>";
+            echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho%20web2/contato.php');</script>";
         }
+		
+
         ?>
+		
+		
       </body>
     </html>

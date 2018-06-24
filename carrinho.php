@@ -80,7 +80,7 @@
 						  <h3 class="box-title">Meu Carrinho</h3>
 						</div>
 					
-					<div class="box-body no-padding">
+					<div class="box-body no-padding" id="tabela-de-compras">
 					  <table class="table table-condensed">
 						<tbody><tr>
 						  <th style="width: 10px">Produto</th>
@@ -138,7 +138,7 @@
 							
 						</div>
 						<div class="card-footer">
-							<a href="#" class="btn btn-success" style="width: 100%">Comprar</a>
+							<a href="#" class="btn btn-success" style="width: 100%" onclick="finaliza_compra()">Comprar</a>
 						</div>
 					  </div>
 				</div>
@@ -153,9 +153,10 @@
 		</footer>
 		
 		<script>
+		
+
 			function remove_item(id){
 				var aux = id.split('_')[2];
-				console.log(aux);
 				$.post("remove_item.php",{car_prod_id: aux});
 				location.reload();
 			}
@@ -167,8 +168,13 @@
 				$.post("muda_op.php",{qtd_op : sel.value, val_op: id});
 				location.reload();
 			}
+			function finaliza_compra(){
+					var aux = document.getElementById('tabela-de-compras').innerHTML;
+					$.post("finaliza_compra.php", {compras : aux});
+					window.location.href="finaliza_compra.php";
+			}
 
-			
+
 		</script>
 	
 </body>

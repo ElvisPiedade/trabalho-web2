@@ -37,7 +37,8 @@ session_start();
 		}else{
 		$_SESSION['senha'] = $senha;
 		$_SESSION['loginname'] = $login;
-			header("location:login.php");
+		$_SESSION['email_atual'] = $linha['email'];
+		header("location:login.php");
 		}
 ?>
 
