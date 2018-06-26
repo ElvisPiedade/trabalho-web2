@@ -35,10 +35,11 @@ session_start();
 			$_SESSION['user_status'] = 'invalido';
 			header("location:login.php");
 		}else{
-		$_SESSION['senha'] = $senha;
+
 		$_SESSION['loginname'] = $login;
 		$_SESSION['email_atual'] = $linha['email'];
 		$_SESSION['logado'] = 'true';
+		$_SESSION['sessiontime'] = time()+360;
 		header("location:login.php");
 		}
 ?>

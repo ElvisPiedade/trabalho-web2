@@ -19,7 +19,8 @@
         $email = $_SESSION['email_atual'];
  
         // Monta o corpo da mensagem com os campos
-        $corpo = "<html><body>";
+        $corpo = "<html><body><h1>Obrigado por comprar em nossa loja</h1><br><br>";
+		
         $corpo .= $_POST['compras'];
         $corpo .= "</body></html>";
 
@@ -30,7 +31,7 @@
         if (!empty($nome) && !empty($email)) {
             mail($para, $assunto, $corpo, $email_headers);
 			unset($_SESSION['carrinho']);
-            $msg = "Sua mensagem foi enviada com sucesso.";
+            $msg = "Compra feita com sucesso";
             echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho%20web2/index.php');</script>";
         } else {
             $msg = "Erro ao enviar a mensagem.";

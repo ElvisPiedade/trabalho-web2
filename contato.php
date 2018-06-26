@@ -16,8 +16,12 @@
     </head>
     <body>
 	
+	
 	<!-- Navigation -->
 	<?php include 'navigation.php';?>
+	
+
+
 		
 	<div class="container" style="margin-top:40px">
 		<div class="row">

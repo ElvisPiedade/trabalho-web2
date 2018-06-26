@@ -1,10 +1,6 @@
 <?php
 	session_start();
-	$teste = $_SESSION['current_prod'];
-	$img_prod = $_SESSION['current_img'];
-	$preco_prod = $_SESSION['current_preco'];
-	$id_prod = $_SESSION['current_id'];
-	
+
 	$con = mysqli_connect("localhost","root","","db");
 	$sql_cat = "SELECT * FROM categoria";
 	$result_cat = mysqli_query($con, $sql_cat) or die(mysqli_error());
@@ -43,47 +39,9 @@
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contato.php">Contato</a>
-            </li>
-			<li class="nav-item">
-              <a class="nav-link" href="login.php">Login</a>
-            </li>			
-			<li class="nav-item">
-              <a class="nav-link" href="carrinho.php">Carrinho</a>
-            </li>
-			<form role="search">
-			<div class="search-control">
-				<input type="search" id="site-search" name="q"
-					   placeholder="Search the site..."
-					   aria-label="Search through site content">
-				<button type="submit">Search</button>
-			</div>
-			</form>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    
+	<!-- Navigation -->
+	<?php include 'navigation.php';?>
 
     <!-- Page Content -->
     <div class="container">
@@ -100,9 +58,9 @@
 			?>
 				<div id="cat_<?php echo $linha_cat['cat_id'] ?>">
 				<?php if($linha_cat['cat_id'] == $current_cat){?>
-					<a href="#" class="list-group-item active" onclick="change_view($(this).parent().attr('id'))"><?php echo $linha_cat['nome'] ?></a>
+					<a href="#" class="list-group-item active" onclick="change_view($(this).parent().attr('id'))"><?php echo utf8_encode($linha_cat['nome']) ?></a>
 				<?php }else{ ?>
-					<a href="#" class="list-group-item" onclick="change_view($(this).parent().attr('id'))"><?php echo $linha_cat['nome'] ?></a>
+					<a href="#" class="list-group-item" onclick="change_view($(this).parent().attr('id'))"><?php echo utf8_encode($linha_cat['nome']) ?></a>
 				<?php } ?>	
 				</div>
 			<?php 
@@ -115,10 +73,10 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="<?php echo $img_prod ?>" alt="">
-			<div class="card-body" id="prod_<?php echo $id_prod ?>">
-				<h3 class="card-title"><?php echo $teste ?></h3>
-				<h4>R$<?php echo $preco_prod ?></h4>
+            <img class="card-img-top img-fluid" src="<?php echo $_SESSION['current_prod']['img_link'] ?>" alt="">
+			<div class="card-body" id="prod_<?php echo $_SESSION['current_prod']['id'] ?>">
+				<h3 class="card-title"><?php echo utf8_encode($_SESSION['current_prod']['nome']) ?></h3>
+				<h4>R$<?php echo $_SESSION['current_prod']['preco'] ?></h4>
 				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
 				<button  id="btn_comprar" class="btn btn-success">Comprar</button>
 			</div>
@@ -153,12 +111,7 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+	<?php include 'footer.php';?>
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -168,8 +121,7 @@
 			var aux =  document.getElementById("btn_comprar").parentElement.id;
 			
 			aux = aux.split('_')[1];
-			console.log(aux);
-			$.post("envia_item.php",{add_id : aux});
+			$.post("gerencia_carrinho.php",{add_id : aux, flag_add_prod : 'true'});
 			window.location.href = 'carrinho.php';
 		});
 	</script>

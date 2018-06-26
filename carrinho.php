@@ -29,9 +29,11 @@
 	
 </head>
 <body>
+
 	<!-- Navigation -->
 	<?php include 'navigation.php';?>
-
+	
+	
 		<div class="container" style="margin-top: 50px">
 			<div class="row">
 				<div class="col-md-9">
@@ -55,6 +57,7 @@
 						  <th></th>
 						  <th>Qtd.</th>
 						  <th style="width: 40px">Preço</th>
+						  <th></th>
 						</tr>
 					 
 					<?php	
@@ -64,11 +67,7 @@
 						  <td>
 							<img src="<?php echo $_SESSION['carrinho'][$key]['img_link'] ?>" height="60" width="60">
 						  </td>
-						  <td><?php echo $_SESSION['carrinho'][$key]['nome'] ?>
-							<div id="car_prod_<?php echo $key ?>">
-								<a href="#" class="btn btn-danger" onclick= "remove_item($(this).parent().attr('id'))" style="font-size: 12px;">Remover</a>
-							</div>	
-						  </td>
+						  <td><?php echo $_SESSION['carrinho'][$key]['nome'] ?></td>
 						  <td>
 							<select id="qtd_<?php echo $key ?>"  onchange="getval(this,<?php echo $key?>)" >
 								<?php for($i=1;$i<=6;$i++){ 
@@ -81,7 +80,12 @@
 								?> 
 							</select>
 						  </td>
-						  <td><span class="badge bg-red"><?php echo $_SESSION['carrinho'][$key]['preco']  ?></span></td>
+						  <td><span class="badge bg-red"><?php echo 'R$ ' . number_format($_SESSION['carrinho'][$key]['preco'], 2, ',', '.');  ?></span></td>
+						  <td>
+							<div id="car_prod_<?php echo $key ?>">
+								<a href="#" class="btn btn-danger" onclick= "remove_item($(this).parent().attr('id'))" style="font-size: 12px;">Remover</a>
+							</div>
+							</td>
 						</tr>
 					<?php	
 						$soma += $_SESSION['carrinho'][$key]['preco']*$_SESSION['carrinho'][$key]['c_qtd'];
@@ -94,25 +98,28 @@
 				  </div>
 				</div>
 				<div class="col-md-3">
-					  <div class="card h-100">
-						<div class="card-body">
-						<h4>Resumo do pedido</h4>
-						<hr />
-						 
-							<div style="display: flex;justify-content: space-between;">
-								<span>Total</span>
-								<span id="preco_total"><?php echo $soma ?></span>
+					<div class= "row">
+						  <div class="card h-100">
+							<div class="card-body"> 
+							<h4>Resumo do pedido</h4>
+							<hr />
+							 
+								<div style="display: flex;justify-content: space-between;">
+									<span>Total</span>
+									<span id="preco_total"><?php echo 'R$ ' . number_format($soma, 2, ',', '.'); ?></span>
+								</div>
+								
 							</div>
 							
-						</div>
-						
-						<div class="card-footer">
-							<a href="#" class="btn btn-success" style="width: 100%" onclick="finaliza_compra(<?php if(isset($_SESSION['logado']) && count($_SESSION['carrinho']) >0){echo $_SESSION['logado'];}else{echo 'false';}; ?>)">Comprar</a>
-						</div>
-					  </div>
+							<div class="card-footer">
+								<a href="#" class="btn btn-success" style="width: 100%" onclick="finaliza_compra(<?php if(isset($_SESSION['logado']) && count($_SESSION['carrinho']) >0){echo $_SESSION['logado'];}else{echo 'false';}; ?>)">Comprar</a>
+							</div>
+						  </div>
+					</div>
 				</div>
 			</div>
 		</div>
+	    <!-- Footer -->
 		<?php include 'footer.php';?>
 		
 		<script>
@@ -120,7 +127,8 @@
 
 			function remove_item(id){
 				var aux = id.split('_')[2];
-				$.post("remove_item.php",{car_prod_id: aux});
+			//	$.post("remove_item.php",{car_prod_id: aux});
+				$.post("gerencia_carrinho.php",{car_prod_id: aux, flag_remove_prod : 'true'});
 				location.reload();
 			}
 			
@@ -128,7 +136,8 @@
 			{
 				console.log(sel.value);
 				console.log(id);
-				$.post("muda_op.php",{qtd_op : sel.value, val_op: id});
+			//	$.post("muda_op.php",{qtd_op : sel.value, val_op: id});
+				$.post("gerencia_carrinho.php",{qtd_op : sel.value, val_op: id, flag_troca_qtd: 'true'});
 				location.reload();
 			}
 			function finaliza_compra(log){
