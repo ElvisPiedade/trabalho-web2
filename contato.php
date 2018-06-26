@@ -65,8 +65,8 @@
 										<span class="input-group-addon">
 													<i class="glyphicon glyphicon-lock"></i>
 												</span>
-											<input type="reset" class="campo_submit" value="Limpar" />
-											<input type="submit" value="Enviar">
+												<input type="submit" class="btn btn-lg btn-primary btn-block" value="Enviar" />
+											<input type="Reset" class="btn btn-lg btn-primary btn-block" value="Limpar" />
 										</div>	
 										</div>
 									</div>

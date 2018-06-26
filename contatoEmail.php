@@ -35,10 +35,7 @@ if (!empty($nome) && !empty($email) && !empty($mensagem)) {
 	$msg = "Erro ao enviar a mensagem.";
 	echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho%20web2/contato.php');</script>";
 }
-
-
 ?>
-
 
 </body>
 </html>
