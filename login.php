@@ -43,12 +43,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="contato.php">Contato</a>
             </li>
 			<li class="nav-item active">
@@ -57,9 +51,9 @@
 			<li class="nav-item">
               <a class="nav-link" href="carrinho.php">Carrinho</a>
             </li>
-			<form role="search">
+			<form role="search" method="post" action="busca.php">
 			<div class="search-control">
-				<input type="search" id="site-search" name="q"
+				<input type="search" id="site-search" name="busca_text"
 					   placeholder="Search the site..."
 					   aria-label="Search through site content">
 				<button type="submit">Search</button>
@@ -81,7 +75,7 @@
 					</div>
 					<div class="panel-body2">
 						<form role="form" method="POST" action="pagina-login.php">
-							<fieldset>
+	 						<fieldset>
 								<?php
 								
 									if(isset($_SESSION['logout'])){
@@ -130,7 +124,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span> 
-												<input class="form-control" placeholder="Usuário" name="loginname" type="text" required autofocus> 
+												<input class="form-control" placeholder="Usuário" name="loginname" type="text" required autofocus/>
 											</div>	
 										</div>
 										<div class="form-group">
@@ -138,11 +132,11 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-lock"></i>
 												</span>
-												<input class="form-control" placeholder="Senha" name="senha" type="password" value="" required>
+												<input class="form-control" placeholder="Senha" name="senha" type="password" value="" required/>
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="submit" class="btn btn-lg btn-primary btn-block" value="Login">
+											<input type="submit" class="btn btn-lg btn-primary btn-block" value="Login" />
 										</div>
 									</div>
 								</div>
@@ -202,7 +196,7 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="submit" class="btn btn-lg btn-primary btn-block" value="Cadastrar">
+											<input type="submit" class="btn btn-lg btn-primary btn-block" value="Cadastrar" />
 										</div>
 									</div>
 								</div>
@@ -210,14 +204,32 @@
 						</form>
 					</div>
 				</div>
-                </div>
+            </div>
 		<?php }else{	?>
-			
-					<h2>Hello <?php echo $_SESSION['loginname'] ?></h2>
-					<h2>Email <?php echo $_SESSION['email_atual'] ?></h2>
-					<form action="logout.php" method="POST">
-						<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sair" name="logout"/>
-					</form>
+					<div class="col-sm-4 col-md-4 col-md-offset-6">
+						<table class="table">
+							<tbody>
+								<tr class="table-primary">
+									<td colspan="2"><b>Informações Pessoais<b></td>
+								</tr>
+								<tr>
+									<td>Nome</td><td><?php echo $_SESSION['loginname'] ?></td>
+								</tr>
+								<tr>
+									<td>Email</td><td><?php echo $_SESSION['email_atual'] ?></td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="2">
+										<form action="logout.php" method="POST">
+											<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sair" name="logout"/>
+										</form>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
 		<?php }?>
 		</div>
 	</div>
@@ -236,20 +248,6 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script>			
-			function nome_src(id){
-				var aux = id;
-					$.post( "teste.php", { prod_id: aux } );
-				};
-
-			function change_view(id){
-				var aux = id.split('_')[1];
-				console.log(aux);
-					$.post("change_view.php",{cat_id : aux});
-				location.reload();
-			}	
-	</script>
-
   </body>
 
 </html>

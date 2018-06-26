@@ -23,6 +23,7 @@
 		$_SESSION['produtos_busca'][$linha['id']] = $linha;
 	}while($linha = mysqli_fetch_assoc($result));	
 	$_SESSION['busca'] = 'true';
+	$_SESSION['busca_count'] = $linhas;
 	
 	header("location:index.php");	
 	

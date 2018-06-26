@@ -1,10 +1,6 @@
 <?php
 	session_start();
-	$teste = $_SESSION['current_prod'];
-	$img_prod = $_SESSION['current_img'];
-	$preco_prod = $_SESSION['current_preco'];
-	$id_prod = $_SESSION['current_id'];
-	
+
 	$con = mysqli_connect("localhost","root","","db");
 	$sql_cat = "SELECT * FROM categoria";
 	$result_cat = mysqli_query($con, $sql_cat) or die(mysqli_error());
@@ -72,14 +68,14 @@
 			<li class="nav-item">
               <a class="nav-link" href="carrinho.php">Carrinho</a>
             </li>
-			<form role="search">
+			<form role="search" method="post" action="busca.php">
 			<div class="search-control">
-				<input type="search" id="site-search" name="q"
+				<input type="search" id="site-search" name="busca_text"
 					   placeholder="Search the site..."
 					   aria-label="Search through site content">
 				<button type="submit">Search</button>
 			</div>
-			</form>
+			</form>	
           </ul>
         </div>
       </div>
@@ -115,10 +111,10 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="<?php echo $img_prod ?>" alt="">
-			<div class="card-body" id="prod_<?php echo $id_prod ?>">
-				<h3 class="card-title"><?php echo $teste ?></h3>
-				<h4>R$<?php echo $preco_prod ?></h4>
+            <img class="card-img-top img-fluid" src="<?php echo $_SESSION['current_prod']['img_link'] ?>" alt="">
+			<div class="card-body" id="prod_<?php echo $_SESSION['current_prod']['id'] ?>">
+				<h3 class="card-title"><?php echo $_SESSION['current_prod']['nome'] ?></h3>
+				<h4>R$<?php echo $_SESSION['current_prod']['preco'] ?></h4>
 				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
 				<button  id="btn_comprar" class="btn btn-success">Comprar</button>
 			</div>
@@ -168,8 +164,7 @@
 			var aux =  document.getElementById("btn_comprar").parentElement.id;
 			
 			aux = aux.split('_')[1];
-			console.log(aux);
-			$.post("envia_item.php",{add_id : aux});
+			$.post("gerencia_carrinho.php",{add_id : aux, flag_add_prod : 'true'});
 			window.location.href = 'carrinho.php';
 		});
 	</script>
