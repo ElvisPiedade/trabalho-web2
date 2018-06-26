@@ -27,8 +27,7 @@
 <html lang="en">
 
   <head>
-
-    <meta charset="utf-8">
+    <meta charset=UTF-8>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -48,42 +47,8 @@
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contato.php">Contato</a>
-            </li>
-			<li class="nav-item">
-              <a class="nav-link" href="login.php">Login</a>
-            </li>
-			<li class="nav-item">
-              <a class="nav-link" href="carrinho.php">Carrinho</a>
-            </li>
-			
-			<form role="search" method="post" action="busca.php">
-			<div class="search-control">
-				<input type="search" id="site-search" name="busca_text"
-					   placeholder="Search the site..."
-					   aria-label="Search through site content">
-				<button type="submit">Search</button>
-			</div>
-			</form>	
-          </ul>
-        </div>
-      </div>
-    </nav>
+	<!-- Navigation -->
+	<?php include 'navigation.php';?>
 
     <!-- Page Content -->
     <div class="container">
@@ -97,6 +62,7 @@
 		  
 			<?php
 				do{ 
+//				$aux = $linha_cat['cat_id'];
 			?>
 				<div id="cat_<?php echo $linha_cat['cat_id'] ?>">
 				<?php if($linha_cat['cat_id'] == $current_cat){?>
@@ -155,8 +121,8 @@
 			<div class="row">
 				<?php
 					if(isset($_SESSION['busca']) && $_SESSION['busca'] == 'true'){
-						if($_SESSION['busca_count'] > 0){
-							//echo count($_SESSION['produtos_busca']);
+						if(count($_SESSION['produtos_busca']) > 0){
+							echo count($_SESSION['produtos_busca']);
 							foreach($_SESSION['produtos_busca'] as $key => $values){
 				?>
 								<div class="col-lg-4 col-md-6 mb-4">
@@ -168,7 +134,7 @@
 											<a href = "produto.php" onclick = "nome_src($(this).parent().attr('id'))"><?php echo $_SESSION['produtos_busca'][$key]['nome']?></a>
 										</div>
 									  </h4>
-									  <h5><?php echo 'R$ ' . number_format($_SESSION['produtos_busca'][$key]['preco'], 2, ',', '.');?></h5>
+									  <h5>R$ <?php echo $_SESSION['produtos_busca'][$key]['preco']?></h5>
 									</div>
 									<div class="card-footer">
 
@@ -178,10 +144,7 @@
 				<?php		
 							}				
 						}else{
-							?> <div class="card-body">
-
-									  <h2>Não foi encontrado nenhum resultado para sua busca</h1>
-								</div> <?php
+							?> <h1>Não foi encontrado resultados para sua busca</h1> <?php
 						}
 					}else{
 							do{
@@ -196,7 +159,7 @@
 													<a href = "produto.php" onclick = "nome_src($(this).parent().attr('id'))"><?php echo $linha['nome']?></a>
 												</div>
 											  </h4>
-											  <h5><?php echo 'R$ ' . number_format($linha['preco'], 2, ',', '.'); ?></h5>
+											  <h5>R$ <?php echo $linha['preco']?></h5>
 											</div>
 											<div class="card-footer">
 
@@ -223,13 +186,7 @@
     </div>
     <!-- /.container -->
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark footer-bottom">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+		<?php include 'footer.php';?>
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -238,13 +195,13 @@
 	<script>			
 			function nome_src(id){
 				var aux = id;
-					$.post( "gerencia_home.php", { prod_id: aux , flag_nome: 'true'});
+					$.post( "teste.php", { prod_id: aux } );
 				};
 
 			function change_view(id){
 				var aux = id.split('_')[1];
 				console.log(aux);
-					$.post("gerencia_home.php",{cat_id : aux, flag_view: 'true'});
+					$.post("change_view.php",{cat_id : aux});
 				location.reload();
 			}	
 	</script>
