@@ -32,10 +32,10 @@
             mail($para, $assunto, $corpo, $email_headers);
 			unset($_SESSION['carrinho']);
             $msg = "Compra feita com sucesso";
-            echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho%20web2/index.php');</script>";
+            echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho-web2/index.php');</script>";
         } else {
             $msg = "Erro ao enviar a mensagem.";
-            echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho%20web2/contato.php');</script>";
+            echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho-web2/contato.php');</script>";
         }
 
 ?>

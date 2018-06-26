@@ -7,7 +7,7 @@
 <body>
 <?php
 	// Destinatário
-	$para = $_POST['email'];
+	$para = 'eccomerce.ifrs@gmail.com';
 
 	// Assunto do e-mail
 	$assunto = "Contato através do site de WEB 2...";
@@ -30,10 +30,10 @@ $email_headers = implode("\n", array("From: $nome", "Return-Path: $email", "MIME
 if (!empty($nome) && !empty($email) && !empty($mensagem)) {
 	mail($para, $assunto, $corpo, $email_headers);
 	$msg = "Sua mensagem foi enviada com sucesso.";
-	echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho%20web2/contato.php');</script>";
+	echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho-web2/contato.php');</script>";
 } else {
 	$msg = "Erro ao enviar a mensagem.";
-	echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho%20web2/contato.php');</script>";
+	echo "<script>alert('$msg');window.location.assign('http://localhost/trabalho-web2/contato.php');</script>";
 }
 ?>
 
