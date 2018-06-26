@@ -58,7 +58,7 @@
 
         <div class="col-lg-3">
 
-          <h1 class="my-4">Shop Name</h1>
+          <h1 class="my-4">WEB2 St@re</h1>
           <div class="list-group">
 		  
 			<?php
